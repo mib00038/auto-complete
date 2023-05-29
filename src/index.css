@@ -5,9 +5,95 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #282c34;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body {
+  background-color: #282c34;
+}
+
+.search-wrapper {
+  width: 50rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-box {
+  border: 3px solid transparent;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  width: 60%;
+  padding: 0.5rem;
+}
+
+.search-box:focus {
+  outline: none;
+  border: 3px solid #ffae5b;
+}
+
+ul.options {
+  display: block;
+  list-style: none;
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: scroll;
+  transition: width 0.3s;
+  margin-top: 1rem;
+  position: relative;
+  padding: 0;
+}
+
+ul.options li {
+  background: white;
+  display: block;
+  margin: 10px auto;
+  text-align: left;
+  font-size: 1.5rem;
+  width: 100%;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.highlight-text {
+  font-weight: bold;
+  color: initial;
+  background-color: #ffffb0;
+}
+
+.option-text {
+  padding: 0.5rem;
+}
+
+ul.options li:hover {
+  background: #d5ffe8;
+}
+
+ul.options li.option-active {
+  background: #94ffc5 ;
+}
+
+.no-options {
+  color: white;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #dedede;
+  font-weight: lighter;
+  opacity: 1; /* Firefox */
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #dedede;
+  font-weight: lighter;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #dedede;
+  font-weight: lighter;
 }
