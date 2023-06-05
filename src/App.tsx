@@ -10,7 +10,12 @@ const App : React.FC = () =>  {
   return (
     <main className="App">
       <header className="App-header">
-        <AutoComplete options={colors} userInput={userInput} setUserInput={setUserInput} />
+        <AutoComplete
+          options={colors}
+          userInput={userInput}
+          setUserInput={setUserInput}
+          placeholder={'search colors...'}
+        />
       </header>
     </main>
   );

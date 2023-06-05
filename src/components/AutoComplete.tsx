@@ -5,6 +5,7 @@ interface AutoCompleteProps {
 	options: string[];
 	userInput: string;
 	setUserInput: Dispatch<SetStateAction<string>>
+	placeholder: string;
 }
 
 // filtering is asynchronous as per test requirements (to mock asynchronous API REST call)
@@ -16,7 +17,7 @@ const fetchFilteredOptionsPromise = (searchSting: string, options: string[]): Pr
 		resolve(filteredOptions)
 	});
 
-const AutoComplete = ({options, userInput, setUserInput} : AutoCompleteProps) => {
+const AutoComplete = ({options, userInput, setUserInput, placeholder} : AutoCompleteProps) => {
 	const [activeOption, setActiveOption] = useState<number>(0);
 	const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
 	const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -75,7 +76,7 @@ const AutoComplete = ({options, userInput, setUserInput} : AutoCompleteProps) =>
 			<input
 				ref={inputRef}
 				autoFocus
-				placeholder='search colors...'
+				placeholder={placeholder}
 				type="text"
 				className="search-box"
 				onChange={handleInputOnChange}
