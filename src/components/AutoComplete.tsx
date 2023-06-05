@@ -1,8 +1,10 @@
-import React, {useRef, useState} from 'react';
+import React, {Dispatch, SetStateAction, useRef, useState} from 'react';
 import HighlightedOption from "./HighlightedOption";
 
 interface AutoCompleteProps {
 	options: string[];
+	userInput: string;
+	setUserInput: Dispatch<SetStateAction<string>>
 }
 
 // filtering is asynchronous as per test requirements (to mock asynchronous API REST call)
@@ -14,23 +16,23 @@ const fetchFilteredOptionsPromise = (searchSting: string, options: string[]): Pr
 		resolve(filteredOptions)
 	});
 
-const AutoComplete = ({options} : AutoCompleteProps) => {
+const AutoComplete = ({options, userInput, setUserInput} : AutoCompleteProps) => {
 	const [activeOption, setActiveOption] = useState<number>(0);
 	const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
 	const [showOptions, setShowOptions] = useState<boolean>(false);
-	const [userInput, setUserInput] = useState<string>('');
 	const inputRef: React.Ref<HTMLInputElement> = useRef(null);
 
-	const handleInputOnChange = async (event: React.ChangeEvent<HTMLInputElement>): Promise<void> => {
+	const handleInputOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const _userInput: string = event?.currentTarget?.value;
 
 		// would require error handling in production
-		const _filteredOptions: string[] = await fetchFilteredOptionsPromise(_userInput, options);
-
-		setActiveOption(0);
-		setFilteredOptions(_filteredOptions);
-		setShowOptions(true);
-		setUserInput(_userInput);
+		fetchFilteredOptionsPromise(_userInput, options)
+			.then((_filteredOptions: string[]) => {
+				setActiveOption(0);
+				setFilteredOptions(_filteredOptions);
+				setShowOptions(true);
+				setUserInput(_userInput);
+			})
 	};
 
 	const handleOptionOnClick = (e: React.MouseEvent<HTMLLIElement>): void => {
